@@ -14,6 +14,8 @@ Vagrant.configure("2") do |config|
       id: "wanderer-app"
     app.vm.network "private_network", ip: "192.168.200.10"
     app.vm.provision "shell", path: "scripts/pre.sh", privileged: true
+    app.vm.provision "file", source: "configs/services", destination: "/tmp/services"
+    app.vm.provision "shell", path: "scripts/post.sh"
   end
 
   config.vm.define "prom" do |prom|
