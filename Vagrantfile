@@ -3,5 +3,6 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "app/", "/var/www/app",
     create: true, group: "vagrant", owner: "vagrant",
     id: "app",
+    type: "smb",
     disabled: false
 end
