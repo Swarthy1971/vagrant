@@ -11,9 +11,11 @@ Vagrant.configure("2") do |config|
       protocol: "tcp",
       auto_correct: true,
       id: "wanderer-app"
+    app.vm.network "private_network", ip: "192.168.200.10"
   end
   config.vm.define "prom" do |prom|
     prom.vm.network "forwarded_port", guest: 9090, host: 9090,
       auto_correct: true, id: "prometeus"
+    prom.vm.network "private_network", ip: "192.168.200.11"
   end
 end
