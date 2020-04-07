@@ -1,7 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
 
-
   config.vm.define "app" do |app|
     app.vm.hostname = "app"
     app.vm.synced_folder "app/", "/var/www/app",
@@ -13,6 +12,10 @@ Vagrant.configure("2") do |config|
       auto_correct: true,
       id: "wanderer-app"
     app.vm.network "private_network", ip: "192.168.200.10"
+    app.vm.provision "docker" do |docker|
+      docker.build_image "/var/www/app", args: "-t app"
+      docker.run "app", args: "-p 8080:8080"
+    end
   end
   config.vm.define "prom" do |prom|
     prom.vm.hostname = "prom"
