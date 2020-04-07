@@ -1,6 +1,9 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
-
+  config.vm.provision "shell", inline: "sudo apt-get install puppet -y"
+  config.vm.provision "puppet" do |puppet|
+    puppet.module_path = "modules"
+  end 
 
   config.vm.define "app" do |app|
     app.vm.hostname = "app"
